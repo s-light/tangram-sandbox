@@ -8,7 +8,7 @@
             api_key: NaqqS33fTUmyQcvbuIUCKA
     data:
         type: TopoJSON
-        url:  ../styles/data/us-states-10m.json
+        url:  ../data/us-states-10m.json
 scene:
     background:
         color: [1.000,1.000,1.000]
