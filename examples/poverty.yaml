@@ -1,7 +1,11 @@
 ﻿sources:
     mapzen:
-        type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?
+        type: MVT
+        url: https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
+        tile_size: 512
+        max_zoom: 16
+        url_params:
+            api_key: NaqqS33fTUmyQcvbuIUCKA
     data:
         type: TopoJSON
         url:  ../styles/data/us-states-10m.json
