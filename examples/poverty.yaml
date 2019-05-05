@@ -188,7 +188,6 @@ styles:
 layers:
     water:
         data: { source: mapzen }
-        properties: { width: 3 }
         draw:
             line:
                 order: 1
