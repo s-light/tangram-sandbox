@@ -1,4 +1,4 @@
-author: Patricio Gonzalez Vivo (@patriciogv) - 2016 
+author: Patricio Gonzalez Vivo (@patriciogv) - 2016
 
 import:
     - borders.yaml
@@ -6,15 +6,15 @@ import:
     - https://tangrams.github.io/blocks/elevation/normal.yaml
 
 sources:
-    mapzen:
+    nextzen:
         type: MVT
         url: https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         tile_size: 512
         max_zoom: 16
         url_params:
-            api_key: NaqqS33fTUmyQcvbuIUCKA
+            api_key: d161Q8KATMOhSOcVGNyQ8g
         rasters: [normals-elevation]
-        
+
 layers:
     earth:
         draw:

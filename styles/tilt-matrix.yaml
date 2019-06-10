@@ -28,7 +28,7 @@ styles:
                             vec3(0.,0.,1.));
                     }
                 position: |
-                    float t = u_time*0.05; 
+                    float t = u_time*0.05;
                     position.xyz = rotateX3D(abs(cos(t))) * rotateZ3D(abs(sin(t))*.5) * position.xyz;
     space-tile:
         shaders:
@@ -126,7 +126,7 @@ styles:
                         rows.x = 2.;
                         if (fract(st.x*rows.x * 0.5) < 0.5){
                             t *= -1.0;
-                        } 
+                        }
                     }
                     ipos = floor(st*rows);
                     ipos.y -= floor(t);
@@ -183,7 +183,7 @@ styles:
                         float glow = (1.-dot(center,center)*3.)*2.0;
 
                         color.rgb = vec3(0.643,0.851,0.690) * ( randomChar(ipos,fpos) * pct )* 0.5;
-                        color.rgb += (vec3(0.027,0.180,0.063) * pct * glow)*0.25;               
+                        color.rgb += (vec3(0.027,0.180,0.063) * pct * glow)*0.25;
                     }
     buildingsLines:
         base: lines
@@ -194,27 +194,27 @@ styles:
                 width: |
                     width *= 0.2+min(pow(position.z*0.006,2.),.6);
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-JUsa0Gc
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             tiledCross:
                 order: 0
                 color: [0.201,0.481,0.264]
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             tiledCross:
                 order: 1
                 color: [0.643,0.851,0.690]
 
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             grid:
                 order: 3
@@ -226,7 +226,7 @@ layers:
                 width: 1px
                 tile_edges: false
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { kind: [rail, ferry] } }
         draw:
             roads:
@@ -278,7 +278,7 @@ layers:
                 roads:
                     width: 3
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             buildings:
                 order: 7

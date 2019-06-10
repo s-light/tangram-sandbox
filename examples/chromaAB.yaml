@@ -2,11 +2,11 @@
     perspective:
         type: flat
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 styles:
     border-common:
         blend: add
@@ -14,7 +14,7 @@ styles:
         shaders:
             blocks:
                 global: |
-                    varying float ab; 
+                    varying float ab;
                 width: |
                     vec4 pos = u_modelView * position;
                     pos.xy /= u_resolution;
@@ -27,23 +27,23 @@ styles:
                     color *= ab*0.03;
     border-red:
         mix: border-common
-        shaders: 
-            blocks: 
+        shaders:
+            blocks:
                 position: |
                     position.xy += (dir*-5.) * ab;//min(dist,1.1);
     border-blue:
         mix: border-common
-        shaders: 
-            blocks: 
+        shaders:
+            blocks:
                 position: |
                     position.xy += (dir*-11.) * ab;//min(dist,1.1);
 
 scene:
-    background: 
+    background:
         color: [0,0,0]
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             lines:
                 order: 0
@@ -58,7 +58,7 @@ layers:
                 color: [0.0, 0.000, 1.000]
                 width: 1px
     boundaries:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             lines:
                 order: 2

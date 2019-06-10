@@ -28,7 +28,7 @@ styles:
                         return smoothstep(threshold-afwidth, threshold+afwidth, value);
                       #else
                         return step(threshold, value);
-                      #endif  
+                      #endif
                     }
                     float circle(vec2 st, float radius){
                         vec2 pos = vec2(0.5)-st;
@@ -40,18 +40,18 @@ styles:
                 color: |
                     // Coord System
                     vec2 st = worldPosition().xy*0.0005;
-                    
+
                     // we make a grid
                     st *= 10.;
-                    
-                    // We offset 
+
+                    // We offset
                     st.x += step(1.,mod(st.y,2.))*0.5;
-                    
+
                     vec2 i_st = floor(st);
                     vec2 f_st = fract(st);
-                    
+
                     float rnd = random(i_st);
-                    
+
                     // color.rgb += rnd;
                     rnd = floor(rnd*5.)*.25;
                     color = texture2D(u_pattern_small,vec2(rnd,0.5));
@@ -63,32 +63,32 @@ styles:
             blocks:
                 color: |
                     color.rgb *= vec3(min((worldPosition().z*.001 + .5),1.));
-    
+
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             dots:
                 order: 2
                 color: '#353535'
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 0
                 color: '#555'
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 1
                 color: '#666'
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         properties: { width: 3 }
         draw:
             lines:
@@ -96,7 +96,7 @@ layers:
                 color: '#777'
                 width: 5
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { $zoom: { min: 14 } }
         draw:
             polygons:

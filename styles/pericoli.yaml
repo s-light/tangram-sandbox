@@ -10,11 +10,11 @@ import:
     - https://tangrams.github.io/blocks/filter/hatch.yaml
 
 textures:
-    hatch_0: 
+    hatch_0:
         url: imgs/hatch_0.png
-    hatch_1: 
+    hatch_1:
         url: imgs/hatch_1.png
-    hatch_2: 
+    hatch_2:
         url: imgs/hatch_2.png
     sem:
         url: imgs/sem-pericoli.png
@@ -62,39 +62,39 @@ lights:
 
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             water:
                 color: [0.271,0.267,0.243]
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             earth:
                 color: [0.271,0.267,0.243]
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             landuse:
                 color: [0.271,0.267,0.243]
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { kind: [rail, ferry] } }
         draw:
             roads:
                 color: '#343434'
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             buildings:
                 color: white
-                extrude: true       
+                extrude: true
             buildingsLines:
                 order: global.order-top
                 width: [[12, .1px], [14, 0.1px], [15, 0.5px], [17, 1.0px], [18, 1px]]
                 extrude: true
                 color: [0.217,0.217,0.217]
     places:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             text:
                 font:
@@ -104,7 +104,7 @@ layers:
                     fill: black
                     stroke: { color: white , width: 7 }
     landuse_labels:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { name: true, kind: park, $zoom: { min: 16 } }
         draw:
             text:
@@ -118,7 +118,7 @@ layers:
 styles:
     earth:
         base: polygons
-        mix: texture-zoom-fade 
+        mix: texture-zoom-fade
         lighting: false
         shaders:
             uniforms:

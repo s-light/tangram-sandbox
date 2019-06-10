@@ -1,11 +1,11 @@
 ﻿sources:
-    mapzen:
+    nextzen:
         type: MVT
         url: https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         tile_size: 512
         max_zoom: 16
         url_params:
-            api_key: NaqqS33fTUmyQcvbuIUCKA
+            api_key: d161Q8KATMOhSOcVGNyQ8g
     data:
         type: TopoJSON
         url:  ../data/us-states-10m.json
@@ -41,13 +41,13 @@ styles:
                     float lat2y_d (float lat) { return rad2deg(log(tan(QUATER_PI+ deg2rad(lat)/2.0))); }
                     float lon2x_d (float lon) { return lon; }
                     //
-                    //    The following functions take or return there results in something close to meters, along the equator 
+                    //    The following functions take or return there results in something close to meters, along the equator
                     //    http://wiki.openstreetmap.org/wiki/Mercator
                     float y2lat_m (float y) { return rad2deg(2.0*atan(exp((y/EARTH_RADIUS)))-HALF_PI); }
                     float x2lon_m (float x) { return rad2deg(x/EARTH_RADIUS); }
                     float lat2y_m (float lat) { return EARTH_RADIUS*log(tan(QUATER_PI+ deg2rad(lat)/2.0)); }
                     float lon2x_m (float lon) { return deg2rad(lon)*EARTH_RADIUS; }
-                    
+
                     // ALBERS
                     // https://gist.github.com/RandomEtc/476238
                     vec2 latlon2albers(float lat, float lon, float lat0, float lng0, float phi1, float phi2 ) {
@@ -55,7 +55,7 @@ styles:
                         lng0 = deg2rad(lng0);    // Central_Meridian
                         phi1 = deg2rad(phi1);    // Standard_Parallel_1
                         phi2 = deg2rad(phi2);    // Standard_Parallel_2
-                        
+
                         float n = 0.5 * (sin(phi1) + sin(phi2));
                         float c = cos(phi1);
                         float C = c*c + 2.*n*sin(phi1);
@@ -64,24 +64,24 @@ styles:
                         float p = sqrt(C - 2.*n*sin(deg2rad(lat)))/n;
                         return vec2(p * sin(theta), p0 - p * cos(theta)) * EARTH_RADIUS;
                     }
-                    
+
                     vec2 latlon2albers (float lat, float lon, float delta_phi1, float delta_phi2) {
-                        return latlon2albers(lat, 
-                                            lon, 
-                                            y2lat_m(u_map_position.y), 
-                                            x2lon_m(u_map_position.x), 
-                                            y2lat_m(u_map_position.y)+delta_phi1, 
+                        return latlon2albers(lat,
+                                            lon,
+                                            y2lat_m(u_map_position.y),
+                                            x2lon_m(u_map_position.x),
+                                            y2lat_m(u_map_position.y)+delta_phi1,
                                             y2lat_m(u_map_position.y+delta_phi2) );
                     }
-                    
+
                     vec2 latlon2albers (float lat, float lon, float width) {
                         return latlon2albers(lat, lon, width, -width);
                     }
-                    
+
                     vec2 latlon2albers(float lat, float lon){
                         return latlon2albers(lat,lon,20.);
                     }
-                    
+
                     vec2 latlon2USalbers(float lat, float lon){
                         return latlon2albers(lat,lon,23.,-96.,29.,45.);
                     }
@@ -96,7 +96,7 @@ styles:
                             return outputMin;
                         } else {
                             float outVal = ((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin);
-                        
+
                             if( clamp ){
                                 if(outputMax < outputMin){
                                     if( outVal < outputMax ) outVal = outputMax;
@@ -110,7 +110,7 @@ styles:
                         }
                     }
                     float map (in float value, in float inputMin, in float inputMax, in float outputMin, in float outputMax) {
-                        return map(value, inputMin, inputMax, outputMin, outputMax, true); 
+                        return map(value, inputMin, inputMax, outputMin, outputMax, true);
                     }
     toAlbers:
         mix: [geometry-projection, functions-map]
@@ -124,12 +124,12 @@ styles:
                     float lat = y2lat_m(mercator.y);
                     float lon = x2lon_m(mercator.x);
                     position.xy = mix(latlon2albers(lat,lon),position.xy,alpha);
-            
+
     poly:
         base: polygons
         mix: toAlbers
     line:
-        base: lines 
+        base: lines
         mix: toAlbers
     grain:
         shaders:
@@ -168,26 +168,26 @@ styles:
                     color.rgb -= grain(gl_FragCoord.xy)*0.3;
     coloring:
         base: polygons
-        mix: [poly,grain] 
-        shaders: 
-            blocks: 
+        mix: [poly,grain]
+        shaders:
+            blocks:
                 position: |
                     position.z = pow(position.z*7.,(1.-u_map_position.z*0.05)*3.);
                 color: |
                     color.rgb *= vec3(min((worldPosition().z*.02+.7),1.));
     coloring-line:
         base: lines
-        mix: [line,grain] 
-        shaders: 
-            blocks: 
+        mix: [line,grain]
+        shaders:
+            blocks:
                 position: |
                     position.z = pow(position.z*7.,(1.-u_map_position.z*0.05)*3.);
                 color: |
                     color.rgb *= .8;
-        
+
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             line:
                 order: 1
@@ -196,7 +196,7 @@ layers:
     counties:
         data: { source: data }
         draw:
-            coloring: 
+            coloring:
                 order: 2
                 extrude: function() { return Math.abs(feature.rate); }
                 color: function() { if (feature.rate > 18) { return [0.929,0.596,0.082]; } else if (feature.rate >= 12) {  return [0.949,0.757,0.141]; } else { return [0.847,0.851,0.851]; } }

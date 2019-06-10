@@ -3,41 +3,41 @@ import:
     - https://tangrams.github.io/blocks/global.yaml
     - https://tangrams.github.io/blocks/geometry/projections.yaml
     - https://tangrams.github.io/blocks/functions/zoom.yaml
-    
+
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 
 cameras:
     cam:
         type: perspective
         vanishing_point: [0, -500]
-        
+
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             poly:
                 order: global.order
                 color: '#555'
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             poly:
                 order: global.order
                 color: '#ddd'
     boundaries:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             line:
                 order: global.order
                 color: white
                 width: 1px
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         properties: { width: 3 }
         draw:
             line:
@@ -45,7 +45,7 @@ layers:
                 color: gray
                 width: [[5, .25px],[15, .5px],[85, 10]]
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { $zoom: { min: 14 } }
         draw:
             poly:
@@ -56,7 +56,7 @@ layers:
             draw:
                 poly:
                     extrude: function () { return feature.height > 0 || $zoom >= 16; }
-                    
+
 styles:
     toAlbers:
         mix: [geometry-projections, functions-zoom]
@@ -72,10 +72,10 @@ styles:
                     float lat = y2lat_m(mercator.y);
                     float lon = x2lon_m(mercator.x);
                     position.xy = mix(latlon2albers(lat,lon),position.xy,zoom());
-            
+
     poly:
         base: polygons
         mix: toAlbers
     line:
-        base: lines 
+        base: lines
         mix: toAlbers

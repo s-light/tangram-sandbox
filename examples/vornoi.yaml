@@ -10,8 +10,8 @@ lights:
         ambient: .5
 styles:
     tools:
-        shaders: 
-            blocks: 
+        shaders:
+            blocks:
                 global: |
                     float random(float x) {
                         return fract(sin(x)*1e4);
@@ -19,7 +19,7 @@ styles:
                     vec2 random2( vec2 p ) {
                         return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453);
                     }
-                    
+
                     // Value Noise by Inigo Quilez - iq/2013
                     // https://www.shadertoy.com/view/lsf3WH
                     float noise(vec2 st) {
@@ -28,9 +28,9 @@ styles:
 
                         vec2 u = f*f*(3.0-2.0*f);
 
-                        return mix( mix( dot( random2(i + vec2(0.0,0.0) ), f - vec2(0.0,0.0) ), 
+                        return mix( mix( dot( random2(i + vec2(0.0,0.0) ), f - vec2(0.0,0.0) ),
                                          dot( random2(i + vec2(1.0,0.0) ), f - vec2(1.0,0.0) ), u.x),
-                                    mix( dot( random2(i + vec2(0.0,1.0) ), f - vec2(0.0,1.0) ), 
+                                    mix( dot( random2(i + vec2(0.0,1.0) ), f - vec2(0.0,1.0) ),
                                          dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
                     }
 
@@ -49,7 +49,7 @@ styles:
                                 vec2 o = random2( n + g );
                                 #ifdef ANIMATE
                                 o = 0.5 + 0.5*sin( u_time + 6.2831*o );
-                                #endif  
+                                #endif
                                 vec2 r = g + o - f;
                                 float d = dot(r,r);
 
@@ -67,7 +67,7 @@ styles:
                                 vec2 o = random2( n + g );
                                 #ifdef ANIMATE
                                 o = 0.5 + 0.5*sin( u_time + 6.2831*o );
-                                #endif  
+                                #endif
                                 vec2 r = g + o - f;
 
                                 if( dot(mr-r,mr-r)>0.00001 )
@@ -75,7 +75,7 @@ styles:
                             }
                         }
                         return vec3( md, mr );
-                    }  
+                    }
     buildings:
         base: polygons
         animated: true
@@ -105,26 +105,26 @@ styles:
                     position.z *= max(1.0,0.5+(1.0-(u_map_position.z/20.0))*5.0);
                 color: |
                     float t = u_time*0.001;
-                    // color.rgb += vec3(cos(t)*.1, sin(t)*.1, 0.1); 
+                    // color.rgb += vec3(cos(t)*.1, sin(t)*.1, 0.1);
                     vec3 pos = worldPosition().xyz*0.005;
                     pos *= rotateX3D(color.r) * rotateY3D(color.g) * rotateZ3D(color.b);
-                    
+
                     float w = 0.005;//.001+random(v_color.b)*0.03;//+min((worldPosition().z*.000000001),.2);
                     float s = 1.;//0.7+random(v_color.g)*2.;
                     vec3 c = voronoi( 8.0*pos.xy*s );
-                    
+
                     color.rgb = vec3(.5);
                     color.rgb += smoothstep(w+0.001, w+0.01, c.x);
-                    
+
                     float dd = length( c.yz );
                     color.rgb = mix(color.rgb,vec3(1.,.0,.0),(1.0-smoothstep( .0, .05, dd)));
-                    
+
                     color.rgb *= vec3(min((worldPosition().z*.001 + .5),1.));
     ground:
         base: polygons
         mix: tools
-        shaders: 
-            blocks: 
+        shaders:
+            blocks:
                 color: |
                     vec3 pos = worldPosition().xyz*0.005;
                     float s = 1.;
@@ -132,32 +132,32 @@ styles:
                     vec3 c = voronoi( 8.0*pos.xy );
                     color.rgb *= smoothstep(w+0.001, w+0.01, c.x);
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             ground:
                 order: 2
                 color: '#353535'
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             ground:
                 order: 0
                 color: '#555'
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             ground:
                 order: 1
                 color: '#666'
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         properties: { width: 3 }
         draw:
             lines:
@@ -165,7 +165,7 @@ layers:
                 color: '#777'
                 width: 5
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { $zoom: { min: 14 } }
         draw:
             polygons:

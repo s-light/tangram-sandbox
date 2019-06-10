@@ -2,11 +2,11 @@
     perspective:
         type: flat
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4        
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 styles:
     ink:
         shaders:
@@ -15,7 +15,7 @@ styles:
                     varying vec3 v_pos;
                     vec2 TileCoords(){return fract(v_pos.xy*0.0002445);}
                     // Random, Noise & Brownian Motion
-                    float random(vec2 st) { 
+                    float random(vec2 st) {
                         return fract(sin(dot(st.xy,vec2(12.9898,78.233)))* 43758.5453123);
                     }
                     float noise(vec2 st) {
@@ -26,8 +26,8 @@ styles:
                         float c = random(i + vec2(0.0, 1.0));
                         float d = random(i + vec2(1.0, 1.0));
                         vec2 u = f * f * (3.0 - 2.0 * f);
-                        return mix(a, b, u.x) + 
-                                (c - a)* u.y * (1.0 - u.x) + 
+                        return mix(a, b, u.x) +
+                                (c - a)* u.y * (1.0 - u.x) +
                                 (d - b) * u.x * u.y;
                     }
                     float fbm ( in vec2 _st) {
@@ -35,7 +35,7 @@ styles:
                         float a = 0.5;
                         vec2 shift = vec2(100.0);
                         // Rotate to reduce axial bias
-                        mat2 rot = mat2(cos(0.5), sin(0.5), 
+                        mat2 rot = mat2(cos(0.5), sin(0.5),
                                         -sin(0.5), cos(0.50));
                         for (int i = 0; i < 5; ++i) {
                             v += a * noise(_st);
@@ -69,8 +69,8 @@ styles:
                     float f = ink(st,TileCoords(),t);
                     float pct = smoothstep(t,t+0.5,f);
                     color.rgb = mix(v_color.rgb,vec3(0.871, 0.863, 0.816), clamp(pow(pct,3.),0.,1.)  );
-                    
-                    
+
+
     ink-lines:
         base: lines
         mix: ink
@@ -86,23 +86,23 @@ styles:
                     float pct = 1.0-smoothstep(t,t+0.5,f);
                     pct *= (smoothstep(0.0,0.1,uv.x)*smoothstep(0.0,0.1,1.0-uv.x)-noise(uv*vec2(2.,70.))*.1 );
                     color.rgb = mix(vec3(0.871, 0.863, 0.816),v_color.rgb, clamp(pow(pct,3.),0.,1.)  );
-                    
+
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             ink-polygons:
                 order: 0
                 color: [0.000, 0.027, 0.165]
 
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 1
                 color: [0.871, 0.863, 0.816]
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             ink-lines:
                 order: 3

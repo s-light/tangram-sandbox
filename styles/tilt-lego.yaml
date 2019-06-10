@@ -40,7 +40,7 @@ styles:
                             vec3(0.,0.,1.));
                     }
                 position: |
-                    float t = u_time*0.05; 
+                    float t = u_time*0.05;
                     position.xyz = rotateX3D(abs(cos(t))) * rotateZ3D(abs(sin(t))*.5) * position.xyz;
     lego:
         mix: tilt
@@ -165,15 +165,15 @@ styles:
                     }
                     color *= clamp(0.6+worldPosition().z*0.007,0.,1.);
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-JUsa0Gc
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 layers:
     earth:
         data:
-            source: mapzen
+            source: nextzen
             layer: earth
         draw:
             floor:
@@ -181,7 +181,7 @@ layers:
                 color: [0.094,0.573,0.255]
     landuse:
         data:
-            source: mapzen
+            source: nextzen
             layer: landuse
         draw:
             floor:
@@ -190,7 +190,7 @@ layers:
 
     water:
         data:
-            source: mapzen
+            source: nextzen
             layer: water
         draw:
             floor:
@@ -198,7 +198,7 @@ layers:
                 color: [0.016,0.341,0.651]
 
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { kind: [rail, ferry] } }
         draw:
             roads:
@@ -255,7 +255,7 @@ layers:
                     width: 3
     buildings:
         data:
-            source: mapzen
+            source: nextzen
             layer: buildings
         draw:
             buildings:

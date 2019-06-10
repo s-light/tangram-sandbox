@@ -21,7 +21,7 @@ lights:
         ambient: .5
 
 scene:
-    background: 
+    background:
         color: [0.078,0.075,0.102]
 
 layers:
@@ -68,8 +68,8 @@ layers:
             buildings:
                 color: [0.941,0.925,0.922]
     places:
-        data: { source: mapzen }
-        filter: 
+        data: { source: nextzen }
+        filter:
             all:
                 - { population: { min: 500000 } }
             any:

@@ -37,11 +37,11 @@ styles:
                     // Shapes mirror pattern
                     vec2 f_st = fract(st*vec2(16.,10.));
                     vec2 i_st = floor(st*vec2(16.,10.));
-    
-                    float index = 0.0;    
+
+                    float index = 0.0;
                     index += mod(i_st.x,2.0);
                     index += mod(i_st.y,2.0)*2.;
-                    
+
                     if(index == 1.0){
                         f_st.x = 1.-f_st.x;
                     } else if(index == 2.0){
@@ -51,68 +51,68 @@ styles:
                         f_st.y = 1.-f_st.y;
                     }
                     f_st.x /= 1.6;
-                    
+
                     // Color pattern
                     vec3 light = vec3(0.834,0.910,0.889);
                     vec3 dark = vec3(0.598,0.655,0.569);
-                    
+
                     vec2 big_st = floor((st)*vec2(16.,10.)-vec2(.5,0.));
                     float b = 0.;
                     if ( mod(big_st.x,2.) == .0 ){
                         b = 1.;
-                    } 
-                    
+                    }
+
                     if ( mod(big_st.y,2.) == .0 ){
                         b = 1.-b;
-                    } 
-                    
+                    }
+
                     vec3 big = mix(dark,light,b);
-                    
+
                     vec2 small_s = floor((st)*vec2(16.,10.)-vec2(.5,2.));
                     float s = 0.;
                     if ( mod(small_s.x,2.) == .0 ){
                         s = 1.;
-                    } 
-                    
+                    }
+
                     if ( mod(small_s.y,2.) == .0 ){
                         s = 1.-b;
-                    } 
+                    }
                     vec3 small = mix(dark,light,s);
-                    
+
                     color.rgb = vec3(0.438,0.577,0.562); // background
                     color.rgb = mix(color.rgb, small,1.0-zakura(f_st+vec2(-.12,-0.5),0.1));
                     color.rgb = mix(color.rgb, small,1.0-zakura(f_st+vec2(.5),0.1));
                     color.rgb = mix(color.rgb, big,1.0-zakura(f_st+vec2(-.12,0.15),0.5));
                     color.rgb = mix(color.rgb, big,1.0-zakura(f_st+vec2(.5,-.15),0.5));
-                    
-                    
-                    
-                    
+
+
+
+
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 2
                 color: '#353535'
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 0
                 color: '#555'
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 1
                 color: '#666'
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         properties: { width: 3 }
         draw:
             lines:
@@ -120,7 +120,7 @@ layers:
                 color: '#777'
                 width: 5
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { $zoom: { min: 14 } }
         draw:
             polygons:

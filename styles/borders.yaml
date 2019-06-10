@@ -1,4 +1,4 @@
-author: Patricio Gonzalez Vivo (@patriciogv) - 2016 
+author: Patricio Gonzalez Vivo (@patriciogv) - 2016
 
 import:
     - default.yaml
@@ -8,14 +8,14 @@ import:
 scene:
     background:
         color: [.1,.1,.1]
-        
+
 layers:
     water:
         draw:
             water:
                 color: [.1,.1,.1]
     boundaries:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             lines-dash:
                 order: global.order

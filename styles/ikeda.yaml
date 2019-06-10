@@ -13,12 +13,12 @@ scene:
 
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             water:
                 color: black
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             lines:
                 order: global.order-top
@@ -28,13 +28,13 @@ layers:
             earth:
                 color: [0.362,0.362,0.362]
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             landuse:
                 color: [0.703,0.703,0.703]
-                width: 1px 
+                width: 1px
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { kind: [rail, ferry] } }
         draw:
             roads:
@@ -57,9 +57,9 @@ layers:
             #                 fill: white
             #                 stroke:
             #                     color: black
-                        
+
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             buildings:
                 color: global.pseudoRandomColor
@@ -121,15 +121,15 @@ styles:
                         vec2 ipos = floor(st*grid);
                         n = floor(mod(n,10.));
                         float digit = 0.0;
-                        if (n < 1. ) { digit = 31600.; } 
-                        else if (n < 2. ) { digit = 9363.0; } 
-                        else if (n < 3. ) { digit = 31184.0; } 
-                        else if (n < 4. ) { digit = 31208.0; } 
-                        else if (n < 5. ) { digit = 23525.0; } 
-                        else if (n < 6. ) { digit = 29672.0; } 
-                        else if (n < 7. ) { digit = 29680.0; } 
-                        else if (n < 8. ) { digit = 31013.0; } 
-                        else if (n < 9. ) { digit = 31728.0; } 
+                        if (n < 1. ) { digit = 31600.; }
+                        else if (n < 2. ) { digit = 9363.0; }
+                        else if (n < 3. ) { digit = 31184.0; }
+                        else if (n < 4. ) { digit = 31208.0; }
+                        else if (n < 5. ) { digit = 23525.0; }
+                        else if (n < 6. ) { digit = 29672.0; }
+                        else if (n < 7. ) { digit = 29680.0; }
+                        else if (n < 8. ) { digit = 31013.0; }
+                        else if (n < 9. ) { digit = 31728.0; }
                         else if (n < 10. ) { digit = 31717.0; }
                         float pct = bin(ipos, digit);
                         vec2 borders = vec2(1.);
@@ -161,7 +161,7 @@ styles:
                     vec2 crosses_st_f = fract(crosses_st);
                     color.rgb *= 1.-cross(crosses_st_f,vec2(.08)*(1.+(1.-zoom)));
                     color.rgb += vec3(.9)*cross(crosses_st_f,vec2(.05)*(1.+(1.-zoom)));
-                    
+
                     // Digits
                     vec2 digits_st = mod(st*(30.+30.*zoom),60.);
                     vec2 digits_st_i = floor(digits_st);
@@ -222,7 +222,7 @@ styles:
                     color.r = randomSerie(st.y, freq, t+offset);
                     color.g = randomSerie(st.y, freq, t);
                     color.b = randomSerie(st.y, freq, t-offset);
-                    
+
                     color.rgb *= step(0.15,st.x)-step(0.85,st.x);
                     color.rgb += 1.-clamp(step(0.04,st.x)-step(0.96,st.x),0.,1.);
 
@@ -246,17 +246,17 @@ styles:
                     if (isWall()) {
                         float r = random(getBrightness(color.rgb));
                         float amount = 0.5+random(color.rg)*0.5;
-                        
+
                         if ( r > .3) {
                             // DeFrag
                             vec2 st = v_texcoord.xy;
                             st.y *= 1.+amount*2.;
                             st.y = fract(st.y);
                             st *= vec2(50.0,10.);
-                            
+
                             vec2 ipos = floor(st);
                             ipos += vec2(0.,floor(v_texcoord.y*(1.+amount*5.)));
-                            
+
                             // Random Cells
                             vec2 vel = floor(vec2(u_time*6.)); // time
                             vel *= vec2(-1.,0.); // direction
@@ -273,7 +273,7 @@ styles:
                             pct += (1.0-step(head.x,ipos.x))*step(10.-head.y,ipos.y+1.);   // X
                             pct = clamp(pct,0.,1.);
                             color.rgb = vec3(pct);
-                            
+
                             // Assign a random value base on the integer coord
                             color.r *= random(floor(st+vel+offset));
                             color.g *= random(floor(st+vel));
@@ -285,7 +285,7 @@ styles:
                             color.rgb *= step(.1,fract(st.x+vel.x))*step(.1,fract(st.y+vel.y));
                         } else {
                             // Running lines
-                            vec2 st = vec2(v_texcoord.x,worldPosition().z*0.005); 
+                            vec2 st = vec2(v_texcoord.x,worldPosition().z*0.005);
                             vec2 grid = vec2(100.0,20.);
                             st *= grid;
 

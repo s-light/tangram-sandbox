@@ -9,9 +9,9 @@ import:
     - https://tangrams.github.io/blocks/filter/hatch.yaml
 
 textures:
-    hatch_0: 
+    hatch_0:
         url: imgs/hatch_0.png
-    hatch_2: 
+    hatch_2:
         url: imgs/hatch_2.png
     paper:
         url: imgs/normal-0031.jpg
@@ -58,7 +58,7 @@ layers:
                 extrude: true
                 color: [0.217,0.217,0.217]
     places:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { name: true }
         draw:
             text:
@@ -68,12 +68,12 @@ layers:
                     style: italic
                     fill: black
                     stroke: { color: [0.976,0.953,0.890] , width: 7 }
-            
+
 styles:
     earth:
         base: polygons
         lighting: false
-        mix: texture-zoom-fade 
+        mix: texture-zoom-fade
         shaders:
             uniforms:
                 u_hatch: hatch_0

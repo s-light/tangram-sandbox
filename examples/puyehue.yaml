@@ -1,4 +1,4 @@
-author: Patricio Gonzalez Vivo (@patriciogv) - 2016 
+author: Patricio Gonzalez Vivo (@patriciogv) - 2016
 
 import:
     - https://tangrams.github.io/blocks/color/tools.yaml
@@ -6,13 +6,13 @@ import:
     - https://tangrams.github.io/blocks/patterns/grid.yaml
     - https://tangrams.github.io/blocks/lines/dash.yaml
     - https://tangrams.github.io/blocks/shapes/cross.yaml
-    
+
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  https:tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https:https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-Nhm6Mkg
+            api_key: d161Q8KATMOhSOcVGNyQ8g
         rasters: [normals, elevation]
     normals:
         type: Raster
@@ -36,7 +36,7 @@ scene:
 cameras:
     perspective:
         type: perspective
-        
+
 lights:
     dir:
         type: directional
@@ -57,16 +57,16 @@ global:
                 1
             ];
         }
-        
+
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             water:
                 order: global.order
                 color: [.1,.1,.1]
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             earth:
                 order: global.order
@@ -76,7 +76,7 @@ layers:
                 color: white
                 width: 2px
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { kind: [rail, ferry] } }
         draw:
             roads:
@@ -102,7 +102,7 @@ layers:
                 roads:
                     order: global.order
     boundaries:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { $zoom: {max: 15}}
         draw:
             lines-dash:
@@ -110,8 +110,8 @@ layers:
                 color: white
                 width: 1px
     places:
-        data: { source: mapzen }
-        filter: 
+        data: { source: nextzen }
+        filter:
             any:
                 - { capital: yes }
                 - { state_capital: yes }
@@ -142,7 +142,7 @@ styles:
                     elevation = elevation*0.6;
                     color = texture2D(u_palette,vec2(elevation,.5));
                     normal = (sampleRaster(0).rgb-.5)*2.;
-        
+
     picture:
         base: polygons
         raster: normal
@@ -159,8 +159,8 @@ styles:
                     uv.y += -266.584*0.001;
                     uv *= 17.088;
                     uv.x *= 9.840*0.1;
-                    
-                    if (uv.x < 1. && uv.x >= 0. && 
+
+                    if (uv.x < 1. && uv.x >= 0. &&
                         uv.y <= 1. && uv.y >= 0.) {
                         vec4 img = texture2D(u_tex, uv);
                         float b = getBrightness(img*7.040);

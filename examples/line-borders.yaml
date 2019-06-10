@@ -2,18 +2,18 @@
     perspective:
         type: flat
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 styles:
     border:
         base: lines
         texcoords: true
         shaders:
             extensions: OES_standard_derivatives
-            blocks: 
+            blocks:
                 global: |
                     float pulse(float x,float p, float w){
                         x = abs(x - p);
@@ -30,28 +30,28 @@ styles:
                         return smoothstep(threshold-afwidth, threshold+afwidth, value);
                       #else
                         return step(threshold, value);
-                      #endif  
+                      #endif
                     }
                     #endif
                 color: |
                     vec2 st = v_texcoord.xy;
                     float pattern = aastep(.5,pulse(st.x,.6,.1)+pulse(st.x,.2,.2));
                     color.rgb = mix(color.rgb,vec3(1.),pattern);
-                
+
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 0
                 color: '#555'
-            border: 
+            border:
                 order: 10
                 color: '#555'
                 width: 10px
                 cap: round
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 2

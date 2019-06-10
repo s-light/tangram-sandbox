@@ -1,23 +1,23 @@
 ﻿sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 
 cameras:
     cam:
         type: flat
-        
+
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: function () { return feature.sort_rank; }
                 color: '#555'
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: function () { return feature.sort_rank; }

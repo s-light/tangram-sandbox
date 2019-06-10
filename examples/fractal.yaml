@@ -18,7 +18,7 @@ styles:
                 global: |
                     float random(in float x){ return fract(sin(x)*43758.5453); }
                     float random(in vec2 st){ return fract(sin(dot(st.xy ,vec2(12.9898,78.233))) * 43758.5453); }
-                    
+
                     vec2 tileFractal(vec2 st, int scale) {
                         for (int i = 0; i < 3; i++){
                             st *= float(scale);
@@ -32,7 +32,7 @@ styles:
                         vec2 grid = fract(st*res);
                         return 1.-(step(res,grid.x) * step(res,grid.y));
                     }
-                    
+
                     float circle(vec2 st, float radius){
                         vec2 pos = vec2(0.5)-st;
                         radius *= 0.75;
@@ -47,46 +47,46 @@ styles:
                     }
                 color: |
                     vec2 st = vec2(v_texcoord.x*.1,worldPosition().z*0.001);
-                    
+
                     if (dot(v_normal,vec3(.0,.0,.1)) != 0.) {
                         st = worldPosition().xy*0.001;
                     }
                     st = tileFractal(st,4);
-                    
+
                     float pct = 0.;
                     pct = circle(st,.999);
                     // pct = box(st,vec2(.95));
-                    
+
                     vec3 col = vec3(0.0);
                     color.rgb *= col;
                     color.rgb += vec3(1.)*pct;
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 2
                 color: '#353535'
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 0
                 color: '#555'
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 1
                 color: '#666'
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         properties: { width: 3 }
         draw:
             lines:
@@ -94,7 +94,7 @@ layers:
                 color: '#777'
                 width: 5
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { $zoom: { min: 14 } }
         draw:
             polygons:

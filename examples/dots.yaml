@@ -2,11 +2,11 @@
     perspective:
         type: flat
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 styles:
     space-tile:
         shaders:
@@ -39,7 +39,7 @@ styles:
                                 return smoothstep(threshold-afwidth, threshold+afwidth, value);
                             #else
                                 return step(threshold, value);
-                            #endif  
+                            #endif
                         #else
                             return step(threshold, value);
                         #endif
@@ -71,7 +71,7 @@ styles:
     pattern-dots:
         mix: [space-tile, tiling-brick, shapes-circle]
         shaders:
-            blocks: 
+            blocks:
                 global: |
                     float TileDots(float scale, float size) {
                         vec2 IN = brick(getTileCoords()*scale,2.);
@@ -99,13 +99,13 @@ styles:
                     color.rgb = mix(color.rgb,vec3(1.),TileDots(10.,.21));
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             dots:
                 order: 0
                 color: '#555'
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 1

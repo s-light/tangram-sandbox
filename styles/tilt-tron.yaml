@@ -28,7 +28,7 @@ styles:
                             vec3(0.,0.,1.));
                     }
                 position: |
-                    float t = u_time*0.1; 
+                    float t = u_time*0.1;
                     float z = smoothstep(0.7,1.,max((u_map_position.z)/20.,0.)*0.9);
                     position.xyz = rotateX3D(z*HALF_PI) * rotateZ3D(sin(t)*PI*z) * position.xyz;
     space-tile:
@@ -166,26 +166,26 @@ styles:
                 position: |
                     // position.z *= max(1.0,0.5+(1.0-(u_map_position.z/20.0))*5.0);
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-JUsa0Gc
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 layers:
     earth:
-        data: { source: mapzen }  
+        data: { source: nextzen }
         draw:
             grid:
                 order: 0
                 color: [0.101,0.203,0.203]
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             grid:
                 order: 1
                 color: '#ff00ff'
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             tiledCross:
                 order: 2
@@ -197,7 +197,7 @@ layers:
                 width: 1px
                 tile_edges: false
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { kind: [rail, ferry] } }
         draw:
             roads:
@@ -247,7 +247,7 @@ layers:
                 roads:
                     width: 3
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             walls:
                 order: 6

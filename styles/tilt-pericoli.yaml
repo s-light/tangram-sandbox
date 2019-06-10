@@ -65,8 +65,8 @@ styles:
                 position: |
                     float z = smoothstep(0.7,1.,max((u_map_position.z)/20.,0.)*0.9);
                     position.y += 1000.*(1.-u_map_position.z/22.);
-                    
-                    float t = u_time*0.1; 
+
+                    float t = u_time*0.1;
                     position.xyz = rotateX3D(z*HALF_PI) * rotateZ3D(sin(t)*PI*z) * position.xyz;
     space-tile:
         shaders:
@@ -102,7 +102,7 @@ styles:
     tools:
         mix: tilt
         shaders:
-            blocks: 
+            blocks:
                 global: |
                     // Color
                     //================================
@@ -217,32 +217,32 @@ styles:
                 width: |
                     width *= 0.2+min(pow(position.z*0.006,2.),.6);
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-JUsa0Gc
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             earth-hatch:
                 order: 0
                 color: [0.271,0.267,0.243]
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             landuse-hatch:
                 order: 1
                 color: [0.271,0.267,0.243]
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             water-hatch:
                 order: 3
                 color: [0.271,0.267,0.243]
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { kind: [rail, ferry] } }
         properties: { width: 3 }
         draw:
@@ -251,7 +251,7 @@ layers:
                 color: '#343434'
                 width: 8
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             buildings:
                 order: 5

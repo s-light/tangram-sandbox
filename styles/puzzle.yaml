@@ -1,11 +1,11 @@
 ﻿# Author @patriciogv - 2016
 
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-JUsa0Gc
+            api_key: d161Q8KATMOhSOcVGNyQ8g
     billboard:
         type: GeoJSON
         url: //52.70.150.13/data/water.json
@@ -57,8 +57,8 @@ styles:
                         return pct;
                     }
                     // Draw two grid that smoothly interpolates acording to zooms
-                    float tileGrid(){ 
-                        return mix(tileGrid(1.),tileGrid(2.),fract(u_map_position.z)); 
+                    float tileGrid(){
+                        return mix(tileGrid(1.),tileGrid(2.),fract(u_map_position.z));
                     }
     grid:
         base: polygons
@@ -153,7 +153,7 @@ styles:
                             vec4(0.,0.,1.,0.),
                             vec4(0.,0.,0.,1.));
                     }
-                    
+
                     float shape(vec2 st, int N){
                         st = st *2.-1.;
                         float a = atan(st.x,st.y)+PI;
@@ -208,20 +208,20 @@ layers:
                 order: 0
                 color: [0.106, 0.106, 0.106]
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             billboardPly:
                 order: 1
                 color: [0.333, 0.333, 0.333]
     boundaries:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             billboardLns:
                 order: 2
                 color: white
                 width: 1px
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             billboardLns:
                 order: 3

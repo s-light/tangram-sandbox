@@ -1,11 +1,11 @@
 ﻿# Author @patriciogv - 2015
 
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-JUsa0Gc
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 cameras:
     perspective:
         type: flat
@@ -112,7 +112,7 @@ styles:
                     float lat2y_d (float lat) { return rad2deg(log(tan(QUATER_PI+ deg2rad(lat)/2.0))); }
                     float lon2x_d (float lon) { return lon; }
                     //
-                    //    The following functions take or return there results in something close to meters, along the equator 
+                    //    The following functions take or return there results in something close to meters, along the equator
                     //    http://wiki.openstreetmap.org/wiki/Mercator
                     float y2lat_m (float y) { return rad2deg(2.0*atan(exp((y/EARTH_RADIUS)))-HALF_PI); }
                     float x2lon_m (float x) { return rad2deg(x/EARTH_RADIUS); }
@@ -129,7 +129,7 @@ styles:
                             return outputMin;
                         } else {
                             float outVal = ((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin);
-                        
+
                             if( clamp ){
                                 if(outputMax < outputMin){
                                     if( outVal < outputMax ) outVal = outputMax;
@@ -143,7 +143,7 @@ styles:
                         }
                     }
                     float map (in float value, in float inputMin, in float inputMax, in float outputMin, in float outputMax) {
-                        return map(value, inputMin, inputMax, outputMin, outputMax, true); 
+                        return map(value, inputMin, inputMax, outputMin, outputMax, true);
                     }
     textures:
         base: polygons
@@ -177,33 +177,33 @@ styles:
                     color = mix(color,mix(color-clouds,color+clouds,light_accumulator_diffuse.r),alpha);
     earth_texture:
         mix: textures
-        material: 
+        material:
             specular: black
     water_texture:
-        material: 
+        material:
             specular: white
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             textures:
                 order: 0
                 color: '#555'
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             textures:
                 order: 1
                 color: '#ddd'
     boundaries:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             lines:
                 order: 3
                 color: white
                 width: [[2,0px],[5,1px]]
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         properties: { width: 3 }
         draw:
             lines:

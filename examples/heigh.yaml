@@ -73,11 +73,11 @@ styles:
         shaders:
             blocks:
                 global: |
-                    
+
                 filter: |
                     color.rgb += vec3(.2)*TileGrid();
                     color.rgb -= grain(gl_FragCoord.xy)*0.3;
-                    
+
     buildings:
         base: polygons
         mix: tools
@@ -87,15 +87,15 @@ styles:
                     color.rgb *= vec3(min((worldPosition().z*.001 + .5),1.));
                     color.rgb -= grain(gl_FragCoord.xy)*0.3;
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4
+            api_key: d161Q8KATMOhSOcVGNyQ8g
     sf:
         type: TopoJSON
         url: http://crossorigin.me/https://dl.dropboxusercontent.com/u/1392786/d3/sfc.json
-        
+
 layers:
 
     sf:
@@ -108,25 +108,25 @@ layers:
                 z: function(){ return feature.ELEVATION * 1 }
 
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             grid:
                 order: 2
                 color: '#353535'
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             grid:
                 order: 0
                 color: '#555'
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             grid:
                 order: 1
                 color: '#666'
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         properties: { width: 3 }
         draw:
             lines:
@@ -134,7 +134,7 @@ layers:
                 color: '#777'
                 width: 5
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { $zoom: { min: 10 } }
         draw:
             polygons:

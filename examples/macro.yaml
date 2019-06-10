@@ -94,7 +94,7 @@ styles:
                     v_pos = NORMALIZED_SHORT(a_position.xyz);
     earth-hatch:
         base: polygons
-        mix: tools 
+        mix: tools
         lighting: false
         shaders:
             uniforms:
@@ -184,32 +184,32 @@ styles:
                 position: |
                     position.z *= max(1.0,0.5+(1.0-(u_map_position.z/20.0))*5.0);
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-P6dkVl4
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             earth-hatch:
                 order: 0
                 color: [0.271,0.267,0.243]
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             landuse-hatch:
                 order: 1
                 color: [0.271,0.267,0.243]
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             water-hatch:
                 order: 3
                 color: [0.271,0.267,0.243]
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { highway: service, kind: rail } }
         properties: { width: 3 }
         draw:
@@ -218,7 +218,7 @@ layers:
                 color: '#343434'
                 width: 8
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             buildings:
                 order: 5

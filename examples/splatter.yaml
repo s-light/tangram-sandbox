@@ -2,11 +2,11 @@
     perspective:
         type: flat
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-x4i7gmA
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 styles:
     tools:
         shaders:
@@ -71,7 +71,7 @@ styles:
                     }
                 color: |
                     vec2 st = TileCoords()*10.;
-                    
+
                     float t = 1.;
 
                     color.rgb = vec3(0.163,0.142,0.206)*0.4;
@@ -79,21 +79,21 @@ styles:
                     color.rgb += vec3(0.671,0.196,0.188)*step(.35, snoise( vec3(st*10.,t*2.+123.0) ) );
                     color.rgb += vec3(0.502,0.576,0.737)* step(.35, snoise( vec3(st*2.,t+0.0) ) );
                     color.rgb += vec3(0.898,0.886,0.890)*step(.5, snoise( vec3(st*2.,t+0.0) ) );
-                    
-                    
+
+
                     // color.rgb = mix(color.rgb, vec3(0.965,0.475,0.267), step(.35, snoise( vec3(st*30.,t*6.+3232.0) ) ));
                     // color.rgb = mix(color.rgb, vec3(0.671,0.196,0.188), step(.35, snoise( vec3(st*10.,t*2.+123.0) ) ));
                     // color.rgb = mix(color.rgb, vec3(0.502,0.576,0.737), step(.35, snoise( vec3(st*2.,t+0.0) ) ));
                     // color.rgb = mix(color.rgb, vec3(0.898,0.886,0.890), step(.5, snoise( vec3(st*2.,t+0.0) ) ));
 layers:
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             polygons:
                 order: 0
                 color: '#555'
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             splatter:
                 order: 1

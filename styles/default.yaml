@@ -5,13 +5,13 @@ import:
     - https://tangrams.github.io/blocks/filter/height.yaml
 
 sources:
-    mapzen:
+    nextzen:
         type: MVT
         url: https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         tile_size: 512
         max_zoom: 16
         url_params:
-            api_key: NaqqS33fTUmyQcvbuIUCKA
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 
 cameras:
     cam:
@@ -27,25 +27,25 @@ lights:
 
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             water:
                 order: global.order
                 color: '#353535'
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             earth:
                 order: global.order
                 color: '#555'
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             landuse:
                 order: global.order
                 color: '#666'
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { kind: [rail, ferry] } }
         draw:
             roads:
@@ -71,7 +71,7 @@ layers:
                 roads:
                     order: global.order
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             buildings:
                 order: global.order

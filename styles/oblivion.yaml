@@ -11,11 +11,11 @@ import:
     - https://tangrams.github.io/blocks/functions/zoom.yaml
 
 sources:
-    mapzen:
+    nextzen:
         type: TopoJSON
-        url:  https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: vector-tiles-JUsa0Gc
+            api_key: d161Q8KATMOhSOcVGNyQ8g
 
 textures:
     sem:
@@ -36,13 +36,13 @@ lights:
         direction: [.1, .5, -1]
         diffuse: .5
         ambient: .5
-    
+
 global:
     order: function () { return feature.sort_rank; }
 
 layers:
     water:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             water:
                 order: global.order
@@ -51,7 +51,7 @@ layers:
                 order: 0
                 color: [0.129, 0.129, 0.129]
     earth:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             pol:
                 order: global.order
@@ -60,20 +60,20 @@ layers:
                 order: 0
                 color: [0.129, 0.129, 0.129]
     landuse:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             area:
                 order: global.order
                 color: [1.000,0.014,0.187]
     buildings:
-        data: { source: mapzen }
+        data: { source: nextzen }
         draw:
             buildings:
                 order: global.order
                 color: '#999'
                 extrude: true
     roads:
-        data: { source: mapzen }
+        data: { source: nextzen }
         filter: { not: { kind: [rail, ferry] } }
         draw:
             lin:
@@ -144,9 +144,9 @@ styles:
                 filter: |
                     vec2 xy = getScreenNonStretchCoords();
                     xy *= 2.;
-                    
+
                     vec3 overlayGrid = vec3(0.0);
-                    
+
                     // Grid
                     vec2 grid_xy = xy*300.;
                     overlayGrid += vec3(0.620,0.722,0.694)*gridF(grid_xy,0.01)*0.5;
@@ -179,7 +179,7 @@ styles:
                         // float pct = random(digits_xy_i+floor(crosses_xy)+floor(u_time*20.));
                         overlayGrid += vec3(0.620,0.722,0.694)*char(digits_xy_f,100.*pct);
                     }
-                    color.rgb += overlayGrid*.4;                    
+                    color.rgb += overlayGrid*.4;
     lin:
         base: lines
         mix: [tilt-rotate, overlay_grid]
@@ -191,8 +191,8 @@ styles:
         base: polygons
         mix: [overlay_grid]
         shaders:
-            blocks: 
-                position: 
+            blocks:
+                position:
                     position.z = -3000.;
                     position.xy *= 100.;
 
@@ -238,5 +238,5 @@ styles:
                     vec2 st = gl_FragCoord.xy/pixel_scale;
                     const float dot_wrap = 1000.;
                     st += mod(u_map_position.xy / meter_pixels, dot_wrap)/pixel_scale;
-                    
+
                     color = mix(color,vec4(0.),stripes(st*100.))*.8;
