@@ -88,12 +88,12 @@ styles:
                     color.rgb -= grain(gl_FragCoord.xy)*0.3;
 sources:
     nextzen:
-        type: TopoJSON
+        type: MVT
         url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
             api_key: d161Q8KATMOhSOcVGNyQ8g
     sf:
-        type: TopoJSON
+        type: MVT
         url: http://crossorigin.me/https://dl.dropboxusercontent.com/u/1392786/d3/sfc.json
 
 layers:

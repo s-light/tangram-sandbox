@@ -7,7 +7,7 @@
         url_params:
             api_key: d161Q8KATMOhSOcVGNyQ8g
     data:
-        type: TopoJSON
+        type: MVT
         url:  ../data/us-states-10m.json
 scene:
     background:

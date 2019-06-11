@@ -218,7 +218,7 @@ styles:
                     width *= 0.2+min(pow(position.z*0.006,2.),.6);
 sources:
     nextzen:
-        type: TopoJSON
+        type: MVT
         url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
             api_key: d161Q8KATMOhSOcVGNyQ8g

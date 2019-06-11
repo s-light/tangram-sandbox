@@ -166,7 +166,7 @@ styles:
                     color *= clamp(0.6+worldPosition().z*0.007,0.,1.);
 sources:
     nextzen:
-        type: TopoJSON
+        type: MVT
         url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
             api_key: d161Q8KATMOhSOcVGNyQ8g
