@@ -10,10 +10,11 @@ import:
 sources:
     nextzen:
         type: MVT
-        url:  https:https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
+        url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
             api_key: d161Q8KATMOhSOcVGNyQ8g
         rasters: [normals, elevation]
+        max_zoom: 16
     normals:
         type: Raster
         url: https://s3.amazonaws.com/elevation-tiles-prod/normal/{z}/{x}/{y}.png

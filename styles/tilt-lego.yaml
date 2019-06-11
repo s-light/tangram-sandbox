@@ -170,6 +170,7 @@ sources:
         url:  https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
             api_key: d161Q8KATMOhSOcVGNyQ8g
+        max_zoom: 16
 layers:
     earth:
         data:

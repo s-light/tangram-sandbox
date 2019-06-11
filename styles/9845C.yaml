@@ -16,6 +16,7 @@ sources:
         max_zoom: 16
         url_params:
             api_key: d161Q8KATMOhSOcVGNyQ8g
+        max_zoom: 16
 
 scene:
     background:
