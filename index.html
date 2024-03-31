@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Tangram Sandbox</title>
 
-        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-        <link rel="stylesheet" href="https://mapzen.com/common/styleguide/styles/styleguide.css">
+<head>
+    <meta charset="utf-8">
+    <title>Tangram Sandbox</title>
 
-        <style>
-            img {
-                display: inline;
-                margin-left: auto;
-                margin-right: auto;
-                max-width: 300px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div id="content"> </div>
-        </div>
-        <script>
-        function fetchHTTP(url, method){
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://mapzen.com/common/styleguide/styles/styleguide.css"
+    >
+
+    <style>
+        img {
+            display: inline;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="content"> </div>
+    </div>
+    <script>
+        function fetchHTTP(url, method) {
             var request = new XMLHttpRequest(), response;
 
             request.onreadystatechange = function () {
@@ -34,14 +39,15 @@
             return response;
         }
 
-        function loadMarkdown(){
+        function loadMarkdown() {
             var mdText = fetchHTTP("README.md");
-            content.innerHTML = marked(mdText);
+            content.innerHTML = marked.parse(mdText);
         }
 
-        window.onload = function(){
+        window.onload = function () {
             loadMarkdown();
         };
-        </script>
-    </body>
+    </script>
+</body>
+
 </html>
