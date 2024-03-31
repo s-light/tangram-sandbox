@@ -2,6 +2,8 @@
 
 Pushing the limits of how 3D maps can look like on [Tangram.js](https://github.com/tangrams/tangram) by [Patricio Gonzalez Vivo](https://twitter.com/patriciogv) at [Mapzen](https://mapzen.com/).
 
+live example at http://tangrams.github.io/tangram-sandbox/tangram.html
+
 ## Elevation raster tiles
 [ ![](https://tangrams.github.io/tangram-sandbox/styles/elevation.png) ](https://tangrams.github.io/tangram-sandbox/tangram.html?styles/elevation#10.97291/40.7461/-74.0931)
 [ ![](https://tangrams.github.io/tangram-sandbox/styles/elevation-ramp.png) ](https://tangrams.github.io/tangram-sandbox/tangram.html?styles/elevation-ramp#10.97291/40.7461/-74.0931)
